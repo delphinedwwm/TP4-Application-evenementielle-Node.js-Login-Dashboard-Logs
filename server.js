@@ -53,6 +53,20 @@ const server = http.createServer((req, res) => {
     //res.end('<h1>Page non trouvée</h1>');
     //}
 
+    if (req.method === 'GET' && req.url === '/logs') {
+        const logPath = path.join(__dirname, 'data', 'logs.txt');
+        fs.readFile(logPath, 'utf-8', (err, content) => {
+            if (err) {
+                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.end('Impossible de lire le fichier de logs');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end(`<pre>${content}</pre>`);
+        });
+        return;
+    }
+
     if (req.method === 'GET' && req.url === '/action/a') {
         const ip = req.socket.remoteAddress;
         eventBus.emit('action:triggered', {
