@@ -17,6 +17,22 @@ function serveFile(res, filePath, contentType = 'text/html') {
         res.end(data);
     });
 }
+
+function redirect(res, location) {
+    res.writeHead(302, { Location: location });
+    res.end();
+}
+
+function loadUsers() {
+    const usersPath = path.join(__dirname, 'config', 'users.json');
+    const fileContent = fs.readFileSync(usersPath, 'utf-8');
+    return JSON.parse(fileContent);
+}
+
+function isValidLogin(email, password, users) {
+    return users.some((u) => u.email === email && u.password === password);
+}
+
 const server = http.createServer((req, res) => {
     // Ce code est exécuté à CHAQUE requête HTTP
     console.log('Nouvelle requête reçue');
@@ -37,6 +53,71 @@ const server = http.createServer((req, res) => {
     //res.end('<h1>Page non trouvée</h1>');
     //}
 
+    if (req.method === 'GET' && req.url === '/action/a') {
+        const ip = req.socket.remoteAddress;
+        eventBus.emit('action:triggered', {
+            action: 'A',
+            ip
+        });
+        redirect(res, '/dashboard');
+        return;
+    }
+
+    if (req.method === 'GET' && req.url === '/action/b') {
+        const ip = req.socket.remoteAddress;
+        eventBus.emit('action:triggered', {
+            action: 'B',
+            ip
+        });
+        redirect(res, '/dashboard');
+        return;
+    }
+
+    if (req.method === 'GET' && req.url === '/action/c') {
+        const ip = req.socket.remoteAddress;
+        eventBus.emit('action:triggered', {
+            action: 'C',
+            ip
+        });
+        redirect(res, '/dashboard');
+        return;
+    }
+
+    if (req.method === 'POST' && req.url === '/login') {
+        let body = '';
+        req.on('data', (chunk) => {
+            body += chunk.toString();
+        });
+
+        req.on('error', (err) => {
+            // Événement custom pour signaler une erreur technique
+            eventBus.emit('request:error', { message: err.message });
+            // Réponse HTTP côté client
+            res.writeHead(400, { 'Content-Type': 'text/plain' });
+            res.end('Erreur lors de la réception des données');
+        });
+
+        req.on('end', () => {
+            const params = new URLSearchParams(body);
+            const email = params.get('email');
+            const password = params.get('password');
+            const ip = req.socket.remoteAddress;
+            // Tentative de connexion
+            eventBus.emit('auth:attempt', { email, ip });
+            //res.writeHead(200, { 'Content-Type': 'text/plain' });
+            //res.end(`email=${email} | ip=${ip}`);
+            const users = loadUsers();
+            if (isValidLogin(email, password, users)) {
+                eventBus.emit('auth:success', { email, ip });
+                redirect(res, '/dashboard');
+            } else {
+                eventBus.emit('auth:failure', { email, ip });
+                redirect(res, '/login?error=1');
+            }
+            //res.writeHead(200, { 'Content-Type': 'text/plain' });
+            //res.end('Tentative enregistrée');
+        });
+    }
     if (req.method === 'GET' && req.url === '/login') {
         const filePath = path.join(__dirname, 'public', 'login.html');
         serveFile(res, filePath);

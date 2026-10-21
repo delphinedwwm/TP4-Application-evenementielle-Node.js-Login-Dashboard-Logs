@@ -5,3 +5,27 @@
 [2026-10-21T11:46:21.393Z] server:start - port 3000
 [2026-10-21T11:46:56.406Z] server:start - port 3000
 [2026-10-21T11:48:18.990Z] server:start - port 3000
+[2026-10-21T12:07:31.260Z] server:start - port 3000
+[2026-10-21T12:12:47.362Z] server:start - port 3000
+[2026-10-21T12:14:12.585Z] server:start - port 3000
+[2026-10-21T12:24:45.638Z] server:start - port 3000
+[2026-10-21T12:24:52.866Z] auth:attempt - toto@gmail.com - ::1
+[2026-10-21T12:24:52.866Z] auth:failure - toto@gmail.com - ::1
+[2026-10-21T12:25:24.848Z] auth:attempt - jean@example.com - ::1
+[2026-10-21T12:25:24.849Z] auth:failure - jean@example.com - ::1
+[2026-10-21T12:26:11.797Z] auth:attempt - toto@gmail.com - ::1
+[2026-10-21T12:26:11.797Z] auth:failure - toto@gmail.com - ::1
+[2026-10-21T12:26:33.100Z] auth:attempt - toto@gmail.com - ::1
+[2026-10-21T12:26:33.101Z] auth:failure - toto@gmail.com - ::1
+[2026-10-21T12:26:43.090Z] server:start - port 3000
+[2026-10-21T12:27:11.435Z] auth:attempt - toto@gmail.com - ::1
+[2026-10-21T12:27:11.435Z] auth:failure - toto@gmail.com - ::1
+[2026-10-21T12:32:04.971Z] server:start - port 3000
+[2026-10-21T12:32:14.752Z] auth:attempt - jean@example.com - ::1
+[2026-10-21T12:32:14.752Z] auth:success - jean@example.com - ::1
+[2026-10-21T12:32:23.529Z] auth:attempt - jean@example.com - ::1
+[2026-10-21T12:32:23.530Z] auth:failure - jean@example.com - ::1
+[2026-10-21T12:44:33.000Z] server:start - port 3000
+[2026-10-21T12:44:36.257Z] action:triggered - action A - ::1
+[2026-10-21T12:44:40.038Z] action:triggered - action B - ::1
+[2026-10-21T12:44:41.906Z] action:triggered - action C - ::1
