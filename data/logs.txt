@@ -1,1 +1,7 @@
 [2026-10-17T18:52:12.580Z] custom:message - Logger prêt
+[2026-10-21T11:32:54.008Z] server:start - port 3000
+[2026-10-21T11:42:12.222Z] server:start - port 3000
+[2026-10-21T11:42:27.630Z] server:start - port 3000
+[2026-10-21T11:46:21.393Z] server:start - port 3000
+[2026-10-21T11:46:56.406Z] server:start - port 3000
+[2026-10-21T11:48:18.990Z] server:start - port 3000

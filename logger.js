@@ -21,3 +21,8 @@ eventBus.on('custom:message', (message) => {
     console.log('LOG EVENT:', message);
     writeLog(`custom:message - ${message}`);
 });
+
+eventBus.on('server:start', ({ port }) => {
+    console.log(`LOG EVENT: server:start (port ${port})`);
+    writeLog(`server:start - port ${port}`);
+});
